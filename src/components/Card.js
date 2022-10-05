@@ -1,17 +1,59 @@
-import React from "react";
+import React, {useState,useRef} from "react";
+import { signInWithGoogle } from "../FIrebase/Firebase";
 import Input from "./Input";
 
 const Card = () => {
+
+  const [show , setShow] = useState(false)
+  const [value , setValue] = useState('')
+  const [email , setEmail] = useState('')
+  const [password , setPassword] = useState('')
+
+  const SignInWithGoogle = () => {
+    alert("Clicked Google");
+  };
+  const SignInWithAple = () => {
+   
+  };
+  const JoinNow = () => {
+    alert("Join Now");
+  };
+
+  const handleValue=(e)=>{
+    if(e.target.type == 'email'){
+      setEmail(e.target.value)
+      return
+    }
+    else if(e.target.type == 'password'){
+      setPassword(e.target.value)
+      return
+    }
+  }
+
+  const SignIn = () => {
+     let data = {email , password}
+     console.log(data)
+    Reset()
+  };
+
+
+  const Reset=()=>{
+      setEmail('')
+      setPassword('')
+  }
+
   return (
     <>
-      <div class=" flex justify-center mt-20">
-        <div class="block rounded-lg shadow-lg bg-white max-w-sm py-15  px-5">
+      <div class=" flex justify-center mt-10">
+        <div class="block rounded-lg drop-shadow-md bg-white max-w-sm py-15  px-5">
           <div>
-            <h1 className="text-3xl bold">Sign In</h1>
-            <p className="py-3">Stay updated on your professional world</p>
+            <h1 className="text-3xl bold mt-10">Sign In</h1>
+            <p className="py-3 text-sm">
+              Stay updated on your professional world
+            </p>
           </div>
           <div className="pb-8">
-          <div class="form-floating mb-3 xl:w-75">
+            <div class="form-floating mb-3 xl:w-75">
               <Input
                 type="email"
                 style="form-control
@@ -31,6 +73,9 @@ const Card = () => {
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 id="floatingInputEmail"
                 placeholder="name@example.com"
+                value={email}
+                // setValue={setValue}
+                onChange={handleValue}
               />
               <label htmlFor="floatingInput" class="text-gray-700">
                 Email
@@ -38,7 +83,7 @@ const Card = () => {
             </div>
             <div class="form-floating mb-3 xl:w-75">
               <Input
-                type="password"
+                type={show? 'text' : 'password'}
                 style="form-control
                 block
                 w-full
@@ -56,13 +101,26 @@ const Card = () => {
                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 id="floatingInputPassword"
                 placeholder="name@example.com"
+                value={password}
+                // setValue={setValue}
+                onChange={handleValue}
               />
+               <p
+              onClick={()=>{setShow(!show)}}
+              className="absolute right-5 top-4 text-blue-500 font-bold hover:bg-blue-200 px-2 hover:rounded-full cursor-pointer">
+                {show? 'hide' : 'show'}
+              </p>
               <label htmlFor="floatingInput" class="text-gray-700">
                 password
               </label>
             </div>
-           
-            <a href="#!">Forgot password?</a>
+
+            <a
+              href="#!"
+              className="font-bold border-0 text-blue-700 hover:bg-blue-100 rounded-full py-1 px-2 hover:underline pointer"
+            >
+              Forgot password?
+            </a>
             <br />
             <div class="flex space-x-2 justify-center mt-5">
               <button
@@ -70,6 +128,7 @@ const Card = () => {
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
                 class="inline-block px-28 py-4 text-base bg-blue-600 text-white  leading-tight rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                onClick={SignIn}
               >
                 Sign In
               </button>
@@ -80,6 +139,7 @@ const Card = () => {
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
                 class="px-14 hover:bg-gray-100 py-3 text-base bg-white-600 text-black flex leading-tight rounded-full border-2 transition duration-150 ease-in-out"
+                onClick={SignInWithGoogle}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +182,8 @@ const Card = () => {
                 type="button"
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
-                class="px-14 py-3 text-base bg-white-600 text-black flex leading-tight rounded-full border-2 transition duration-150 ease-in-out"
+                class="px-14 py-3 hover:bg-gray-100 text-base bg-white-600 text-black flex leading-tight rounded-full border-2 transition duration-150 ease-in-out"
+                onClick={SignInWithAple}
               >
                 <svg
                   className="mr-2"
@@ -144,11 +205,12 @@ const Card = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center pb-10">
         <p className="py-3">New to LinkedIn?</p>
         <a
           href="#"
-          className="text-blue-900 ml-5 hover:bg-blue-300 rounded-full py-1 px-2"
+          className="text-blue-900 ml-5 hover:bg-blue-300 rounded-full py-1 px-2 hover:underline pointer"
+          onClick={JoinNow}
         >
           Join Now
         </a>

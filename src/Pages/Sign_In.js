@@ -5,11 +5,11 @@ import Links from '../components/Links'
 
 const Sign_In = () => {
   return (
-   <>
+   <div className='relative w-full min-h-full'> 
    <Header />
    <Card/>
    <Links/>
-   </>
+   </div>
   )
 }
 
